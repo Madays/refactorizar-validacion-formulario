@@ -2,12 +2,13 @@
 function adviceMessage(_id,_advice){
     var id = $(_id)[0];
     //console.log(id[0]);
-    var span = document.createElement('span');
-    //var span = $(_id).html('<span></span>');
-    //console.log(span);
-    var content = document.createTextNode(_advice);
-    span.appendChild(content);
-    id.parentNode.appendChild(span);    
+    //var span = document.createElement('span');
+    var idContainer = $(_id).parent().append('<span>Hola</span>');
+    var span = idContainer.find('span');
+    console.log(span);
+    //var content = document.createTextNode(_advice);
+    //span.appendChild(content);
+    //id.parentNode.appendChild(span);    
 }
 //eliminar adviceMessage
 function deleteAdviceMessage(_id){
@@ -27,16 +28,18 @@ var validate = {
 }
 
 function validateName(){    
-    var name = $('#name');
-    if(validate.isText(name.val())){        
-        if(name.nextSibling!==null){
+    var name = $('#name');    
+    if(validate.isText(name.val())){  
+        console.log('letras');
+        if(name.next()!==null){
             firstLetterUpperCase('#name');
             deleteAdviceMessage('#name');     
         }           
     }else{
-        if(name.nextSibling==null){            
-            adviceMessage('#name','Debe ingresar su nombre');
-        }
+        if(name[0].next()==null){
+            console.log('numeros');                    
+            adviceMessage('#name','Debe ingresar su nombre');    
+        }                
     }       
 }
 
