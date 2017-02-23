@@ -13,7 +13,7 @@ function adviceMessage(_id,_advice){
 //eliminar adviceMessage
 function deleteAdviceMessage(_id){
     //var id = $(_id)[0];
-    var id = $(_id);
+        var id = $(_id);
     //id.parentNode.removeChild(id.nextSibling);
     id.next().remove();
 }
