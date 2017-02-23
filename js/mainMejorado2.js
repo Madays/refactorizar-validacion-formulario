@@ -3,17 +3,19 @@ function adviceMessage(_id,_advice){
     var id = $(_id)[0];
     //console.log(id[0]);
     //var span = document.createElement('span');
-    var idContainer = $(_id).parent().append('<span>Hola</span>');
-    var span = idContainer.find('span');
-    console.log(span);
+    var idContainer = $(_id).parent().append('<span>'+_advice+'</span>');
+    //var span = idContainer.find('span');
+    //console.log(span);
     //var content = document.createTextNode(_advice);
     //span.appendChild(content);
     //id.parentNode.appendChild(span);    
 }
 //eliminar adviceMessage
 function deleteAdviceMessage(_id){
-    var id = $(_id)[0];
-    id.parentNode.removeChild(id.nextSibling);
+    //var id = $(_id)[0];
+    var id = $(_id);
+    //id.parentNode.removeChild(id.nextSibling);
+    id.next().remove();
 }
 //validar nombre, apellido, correo, password
 var validate = {
@@ -30,16 +32,18 @@ var validate = {
 function validateName(){    
     var name = $('#name');    
     if(validate.isText(name.val())){  
-        console.log('letras');
+        //console.log('letras');
         if(name.next()!==null){
             firstLetterUpperCase('#name');
             deleteAdviceMessage('#name');     
         }           
     }else{
-        if(name[0].next()==null){
-            console.log('numeros');                    
-            adviceMessage('#name','Debe ingresar su nombre');    
-        }                
+        
+        //console.log(name.next().length); 
+        if(name.next().length==0){
+            adviceMessage('#name','Debe ingresar su nombre');       
+        } 
+                      
     }       
 }
 
@@ -47,13 +51,15 @@ function validateLastname(){
     
     var lastname =$('#lastname');
     if(validate.isText(lastname.val())){
-        if(lastname.nextSibling!==null){
+        if(lastname.next()!==null){
             firstLetterUpperCase('#lastname');
             deleteAdviceMessage('#lastname');                
         }        
-    }else if(lastname.nextSibling==null){        
-        adviceMessage('#lastname','Debe ingresar su apellido');
-    }    
+    }else{
+        if(lastname.next().length==0){        
+            adviceMessage('#lastname','Debe ingresar su apellido');
+        }    
+    }     
 }
 
 function validateEmail(){
